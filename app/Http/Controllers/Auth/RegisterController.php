@@ -16,6 +16,7 @@ class RegisterController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->only('email', 'password'));
         //validation
         $this->validate($request, [
             'name' => 'required',
@@ -33,5 +34,9 @@ class RegisterController extends Controller
         ]);
 
         //sign the user in
+        auth()->attempt($request->only('email', 'password'));
+        
+        //redirect the user
+        return redirect()->route('dashboard');
     }
 }
