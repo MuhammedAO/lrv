@@ -9,7 +9,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::paginate(2);
+        $posts = Post::latest()->paginate(2);
 
         return view('posts.index', [
             'posts' => $posts
@@ -28,5 +28,12 @@ class PostController extends Controller
 
      return back();
 
+    }
+
+    public function destroy(Post $post)
+    {
+       $post -> delete();
+
+       return back();
     }
 }
